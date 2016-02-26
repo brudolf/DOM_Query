@@ -1,12 +1,31 @@
 <script src="Q_library.js"></script>
 <script>
+
 	
-	window.addEventListener('load', function() {
-		Q("mezo2").html(Q("mezo1").html());
+	Q(function() { 
+
+		Q("link").click(function() {
+			Q("field2").html("Clicked");
+		});
+
+		Q("field1").hover(function() {
+			Q("field1").color("blue");
+		}, function() {
+			Q("field1").color("white");
+		})
+
+		Q("field1").css("margin", "44");
+
+		Q("box").css("border", "1px solid black");
+		Q("box").css("background", "blue");
+
+		Q("box").size(100,100);
 	});
 
 </script>
 <body>
-	<p id="mezo1">1. mezo tartalma</p>
-	<p id="mezo2"></p>
+	<a id="link" href="#">Click!</a>
+	<p id="field1">1. label</p>
+	<p id="field2"></p>
+	<div id="box"></div>
 </body>

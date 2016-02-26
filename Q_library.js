@@ -3,7 +3,11 @@
 
 function Q(id) {
 
-	if (id) {
+	if (typeof id === 'function') {
+		this.addEventListener("load", function() {
+			return id();
+		});
+	} else if (id) {
 		if (window === this) {
 			return new Q(id);
 		}
@@ -18,22 +22,26 @@ Q.prototype = {
 				this.e.style.display = 'none';
 				return this;
 			},
+
 	show:	function() {
 				this.e.style.display = 'inherit';
 				return this;
 			},
-	bgcolor: function(color) {
-				this.e.style.background = color;
+
+	color: function(colour) {
+				this.e.style.background = colour;
 				return this;
 			},
-	html: function(text) {
+
+	html: 	function(text) {
 				if (text === undefined) return this.e.innerHTML;
 				else { 
 					this.e.innerHTML = text;
 					return this;
 				}
 	},
-	val: function(newval) {
+
+	val: 	function(newval) {
 				this.e.value = newval;
 				return this;
 			},
@@ -51,7 +59,32 @@ Q.prototype = {
 				this.e.style.height = height + 'px';
 				this.e.style.width = width + 'px';
 				return this;
-			}
+			},
+
+	click:  function(on) {
+				this.e.addEventListener("click", function() {
+					return on();
+				});
+			},
+
+	hover: 	function(on, off) {
+				this.e.addEventListener("mouseover", function() {
+					return on();
+				});
+				this.e.addEventListener("mouseout", function() {
+					return off();
+				});
+			},
+
+	css: 	function(prop, val) {
+				if(val === undefined) {
+					return this.e.style[prop];	
+				} else {
+					this.e.style[prop] = val;
+					return this;
+				}
+	}
+
 };
 	window.Q = Q;
 })(window);
